@@ -47,34 +47,34 @@ public class MaryJaneandInvitations {
 
     private static String OrderType(int numline,String type) {
         String order = "";
-        int countX = 0;
-        int firstX = 0;
-        int lastX;
         char[] Type =type.toCharArray();
-        do{
-            for(int i = 0; i< type.length(); i++){
-                if(Type[i] == 'X'){
-                    countX ++;
-                    if(Type[i-1] != 'X'){
-                        firstX = i;
+        char[] Order = new char [type.length()];
+        int count = 0;
+        int countX = 0;
+        for(int i = 0; i < type.length(); i++){
+            if(Type[i] != 'X'){
+                Order[count]=Type[i];
+                if(i != 0){
+                    if(Type[i-1] == 'X'){
+                        count += countX;
+                        countX = 0;
                     }
-                    if(Type[i+1]!= 'X'){
-                        lastX = i;
-                        for(int j = firstX; j<=lastX; j++){
-                            Type[j] = 0;
-                        }
-                        Type[firstX-countX] = Type[lastX +1];
-                        Type[lastX+1] = 0;
-                        break;
+                    else{
+                        count++;
                     }
                 }
-            }
-            for(int i =0; i< type.length(); i++){
-                if (Character.isAlphabetic(Type[i])) {
-                    order = order+Type[i];
+                else{
+                    count++;
                 }
             }
-        }while(numline != order.length());      
+            else{
+                count--;
+                countX++;
+            }
+        }
+        for(int i = 0; i < Order.length; i++)
+            order += Order[i];
+        
         return order;
     }
 }
